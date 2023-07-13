@@ -1,4 +1,4 @@
-var mysql = require("mysql");
+var mysql = require("mysql2");
 
 var connection = mysql.createConnection({
   host: "localhost",
@@ -11,8 +11,6 @@ let sql = "select id,nome,tipo from carro";
 connection.query(sql, function (error, results, fields) {
   if (error) throw error;
   let carros = results;
-  for (let i = 0; carros.length > i; i++) {
-    console.log(carros[i].id + ": " + carros[i].nome);
-  }
+  carros.map(c => console.log(c.id + ": " + c.nome));
 });
 connection.end();
