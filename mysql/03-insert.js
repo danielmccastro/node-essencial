@@ -7,10 +7,12 @@ var connection = mysql.createConnection({
   database: "livro",
 });
 connection.connect();
-let sql = "select id,nome,tipo from carro";
-connection.query(sql, function (error, results, fields) {
+
+let sql = "insert into carro set ?";
+
+var carro = {nome: "Meu carro", tipo: "esportivos"};
+connection.query(sql, carro, function (error, results, fields) {
   if (error) throw error;
-  let carros = results;
-  carros.map(c => console.log(c.id + ": " + c.nome));
+  console.log("Carro salvo com sucesso, id: " + results.insertId);
 });
 connection.end();
