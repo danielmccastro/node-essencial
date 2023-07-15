@@ -1,4 +1,4 @@
-var mysql = require("mysql2");
+/* var mysql = require("mysql2");
 
 var connection = mysql.createConnection({
   host: "localhost",
@@ -13,4 +13,9 @@ connection.query(sql, function (error, results, fields) {
   let carros = results;
   carros.map(c => console.log(c.id + ": " + c.nome));
 });
-connection.end();
+connection.end(); */
+
+const CarroDB = require("./CarroDB");
+CarroDB.getCarros(function(carros) {
+  carros.map(c => console.log(c.id + ": " + c.nome));
+})

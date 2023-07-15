@@ -1,4 +1,4 @@
-var mysql = require("mysql2");
+/* var mysql = require("mysql2");
 
 var connection = mysql.createConnection({
   host: "localhost",
@@ -15,4 +15,10 @@ connection.query(sql, id, function (error, results, fields) {
   console.log("Carro deletado com sucesso!");
   console.log("Quantidade de registros atualizados: " + results.affectedRows);
 });
-connection.end();
+connection.end(); */
+
+const CarroDB = require("./CarroDB");
+var carro = {id: 31};
+CarroDB.delete(carro, function(carro) {
+  console.log("Carro deletado: " + carro.id);
+})

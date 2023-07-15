@@ -1,4 +1,4 @@
-var mysql = require("mysql2");
+/* var mysql = require("mysql2");
 
 var connection = mysql.createConnection({
   host: "localhost",
@@ -16,4 +16,10 @@ connection.query(sql, [json, id], function (error, results, fields) {
   console.log("Carro atualizado com sucesso!");
   console.log("Quantidade de registros atualizados: " + results.affectedRows);
 });
-connection.end();
+connection.end(); */
+
+const CarroDB = require("./CarroDB");
+var carro = {id: 31, nome: "Meu carro update", tipo: "esportivos"};
+CarroDB.update(carro, function(carro) {
+  console.log("Carro atualizado: " + carro.id + ": " + carro.nome);
+});
