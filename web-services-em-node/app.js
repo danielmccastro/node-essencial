@@ -10,20 +10,47 @@ function getCarros(response, tipo) {
   });
 }
 
+function salvarCarro(response, carro) {
+    CarroDB.save(carro, function(carro) {
+        console.log("Carro salvo com sucesso: " + carro.id);
+        var json = JSON.stringify(carro);
+        response.end(json);
+    });
+}
+
 function callback(request, response) {
   var parts = url.parse(request.url);
   var path = parts.path;
   response.writeHead(200, {
     "Content-Type": "application/json; charset=utf-8",
   });
-  if (path == "/carros/classicos") {
-    getCarros(response, "classicos");
-  } else if (path == "/carros/esportivos") {
-    getCarros(response, "esportivos");
-  } else if (path == "/carros/luxo") {
-    getCarros(response, "luxo");
-  } else {
-    response.end("Not found: " + path);
+  if (request.method == "GET") {
+    if (path == "/carros/classicos") {
+      getCarros(response, "classicos");
+    } else if (path == "/carros/esportivos") {
+      getCarros(response, "esportivos");
+    } else if (path == "/carros/luxo") {
+      getCarros(response, "luxo");
+    } else {
+      response.end("Not found: " + path);
+    }
+  } else if(request.method == "POST") {
+    var body = "";
+    request.on("data", function(data) {
+        body += data;
+    });
+    request.on("end", function() {
+       /*  response.writeHead(200, {"Content-Type": "text/plain; charset=utf-8"}); */
+        /* console.log("POST Body: " + body);
+        response.end("POST Body: " + body); */
+       /*  let calc = JSON.parse(body);
+        let c = calc.a + calc.b;
+        response.end("SOMA: " + c); */
+        console.log("POST Body: " + body);
+        let carro = JSON.parse(body);
+        salvarCarro(response, carro);
+    });
+    return;
   }
 }
 
