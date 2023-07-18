@@ -11,6 +11,9 @@ app.use((req, res, next) => {
 app.use("/api", require("./routes/carros"));
 // localhost:3000/api/
 // app.use("/", require("./routes/carros")) ----> localhost:3000/
+app.use("/api/upload", require("./routes/upload"))
+app.use(express.static(__dirname + "/view"));
+
 app.get("/teste_erro", (req, res) => {
     throw Error("Erro Ninja");
 }); // nao muito amigavel. somente para demonstracao
