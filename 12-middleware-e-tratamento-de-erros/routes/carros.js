@@ -2,8 +2,12 @@ let express = require("express");
 let router = express.Router();
 const CarroDB = require("../model/CarroDB");
 
-router.get("/carros", (req, res) => {
-    CarroDB.getCarros((carros) => {
+router.get("/carros", (req, res, next) => {
+    CarroDB.getCarros((error, carros) => {
+        if (error) {
+            console.log("Erro de SQL: " + error.message);
+            return next(error);
+        }
         res.json(carros);
     })
 });
